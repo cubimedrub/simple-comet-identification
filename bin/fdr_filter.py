@@ -32,6 +32,12 @@ def get_cli() -> argparse.ArgumentParser:
         default="DECOY_",
         help="Decoy prefix to filter by, default is DECOY_"
     )
+    parser.add_argument(
+        "--keep-decoys",
+        action="store_true",
+        default="false",
+        help="Keep decoys in the PSMs, default is false"
+    )
     return parser
 
 
@@ -185,7 +191,8 @@ def main():
     psms = mark_decoys(psms, args.decoy_prefix)
     psms = calc_fdr(psms)
     psms = filter_by_fdr(psms, args.fdr)
-    psms = remove_decoys(psms)
+    if not args.keep_decoys:
+        psms = remove_decoys(psms)
     overwrite(Path(args.comet_psms), psms)
 
 

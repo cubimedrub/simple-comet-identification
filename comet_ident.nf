@@ -7,6 +7,7 @@ params.fasta = ""
 params.mzmlDir = ""
 params.resultsDir = ""
 params.fdrThreshold = 0.05
+params.keepDecoys = 0
 
 // Makes sure the txt output is active
 process adjust_comet_params {
@@ -53,7 +54,7 @@ process filter {
     
     """
     psm_file=(*.tsv)
-    fdr_filter.py \${psm_file} --fdr ${params.fdrThreshold}
+    fdr_filter.py \${psm_file} --fdr ${params.fdrThreshold} ${params.keepDecoys != 0 ? '--keep-decoys' : ''}
     """
 }
 

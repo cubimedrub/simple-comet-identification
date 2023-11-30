@@ -36,3 +36,4 @@ Hint: Will only install Python 3 and Pandas from the requirements file for now. 
 | --mzml-dir | Path to mzML dir |
 | --results-dir | Path to results dir |
 | --fdr-threshold | Threshold for FDR |
+| --keep-decoys | If not 0, decoys will be removed from filtered PSMs, default 0 |
