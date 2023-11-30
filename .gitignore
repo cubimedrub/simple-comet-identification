@@ -1,0 +1,6 @@
+/work
+/.nextflow
+/.nextflow.log
+/.nextflow.log.*
+comet.params.new
+comet.params
