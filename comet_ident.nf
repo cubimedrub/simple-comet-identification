@@ -14,10 +14,11 @@ process adjust_comet_params {
     path comet_param_file
 
     output:
-    path "*.params.adjusted"
+    path "comet.params.adjusted"
 
     """
-    # adjust comet params
+    cat ${comet_param_file} | sed 's/output_txtfile = 0/output_txtfile = 1/g' > comet.params.adjusted
+    """
 }
 
 process search {
@@ -60,8 +61,9 @@ process filter {
 workflow() {
     mzmls = Channel.fromPath(params.mzmlDir + "/*.{mzML,mzml}")
     comet_param_file = Channel.fromPath(params.cometParams)
+    comet_param_file_adjusted = adjust_comet_params(comet_param_file)
     fasta_file = Channel.fromPath(params.fasta)
 
-    psms_files = search(comet_param_file, fasta_file, mzmls)
+    psms_files = search(comet_param_file_adjusted, fasta_file, mzmls)
     filter(psms_files)
 }

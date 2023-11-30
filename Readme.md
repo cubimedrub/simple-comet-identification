@@ -21,6 +21,7 @@ Hint: Will only install Python 3 and Pandas from the requirements file for now. 
 2. Prepare the comet settings
     * `comet -p` will create a well documented default parameter file `comet.params.new`
     * Adjust them to your needs
+    * The workflow only need Comet's txt-output, and makes sure it is active. Everything else can be disabled.
 3. Run the workflow
     ```
     nextflow run comet_ident.nf <ARGUMENTS>
