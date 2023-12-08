@@ -1,7 +1,6 @@
 nextflow.enable.dsl = 2
 
 // required arguments
-params.cometBin = ""
 params.cometParams = ""
 params.fasta = ""
 params.mzmlDir = ""
@@ -23,6 +22,7 @@ process adjust_comet_params {
 }
 
 process search {
+    container 'cubimed/comet-ident-comet:latest'
     maxForks 1
 
     input:
@@ -34,7 +34,7 @@ process search {
     path "*.tsv"
     """
 
-    ${params.cometBin} -P${comet_param_file} -D${fasta_file} ${mzml}
+    comet -P${comet_param_file} -D${fasta_file} ${mzml}
 
     for file in *.txt; do
         mv -- "\$file" "\$(basename \$file .txt).psms.tsv"
@@ -44,6 +44,7 @@ process search {
 
 
 process filter {
+    container 'cubimed/comet-ident-conda:latest'
     publishDir "${params.resultsDir}/psms", mode: 'copy'
 
     input: 

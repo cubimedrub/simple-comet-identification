@@ -4,3 +4,6 @@
 /.nextflow.log.*
 comet.params.new
 comet.params
+# pre downloaded comet
+/bin/*
+!/bin/*.py
